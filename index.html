@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Álgebra Linear UFBA</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  </head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js" integrity="sha512-zAs8dHhwlTbfcVGRX1x0EZAH/L99NjAFzX6muwOcOJc7dbGFNaW4O7b9QOyCMRYBNjO+E0Kx6yLDsiPQhhWm7g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<h1>Álgebra Linear UFBA</h1>
+<div id ="content"></div>
+</body>
+<script>
+window.onload = function() {
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
+  // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
+  let question = params.q;
+  if (typeof question !== 'undefined') {
+    let url = `${question}.md`;
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error: ${response.status}`);
+        }
+        return response.text();
+      })
+      .then((text) => {            
+        document.getElementById('content').innerHTML =
+        marked.parse(text);
+      })
+      .catch((error) => poemDisplay.textContent = `Could not fetch verse: ${error}`);    
+  }
+};
+</script>
+</html>
