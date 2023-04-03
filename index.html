@@ -51,6 +51,7 @@
 </body>
 <script>
 window.onload = function() {
+  const content = document.getElementById('content');
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
   });
@@ -66,7 +67,7 @@ window.onload = function() {
         return response.text();
       })
       .then((text) => {            
-        document.getElementById('content').innerHTML =
+        content.innerHTML =
         marked.parse(text);
         renderMathInElement(document.body, {
           // customised options
@@ -81,7 +82,13 @@ window.onload = function() {
           throwOnError : false
         });
       })
-      .catch((error) => poemDisplay.textContent = `Could not fetch verse: ${error}`);    
+      .catch((error) =>
+        content.innerHTML =
+          marked.parse(":-(")
+      );    
+  } else {
+    content.innerHTML =
+      marked.parse(":-(");
   }
 };
 </script>
