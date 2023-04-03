@@ -56,8 +56,8 @@ window.onload = function() {
   });
   // Get the value of "some_key" in eg "https://example.com/?some_key=some_value"
   let question = params.q;
-  if (typeof question !== 'undefined') {
-    let url = `${question}.md`;
+  if (question !== null) {
+    let url = `questions/${question}.md`;
     fetch(url)
       .then((response) => {
         if (!response.ok) {
