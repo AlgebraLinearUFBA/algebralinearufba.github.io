@@ -52,6 +52,10 @@
 </body>
 <script>
 window.onload = function() {
+  const options = {
+    throwOnError: false
+  };
+  marked.use(markedKatex(options));
   const content = document.getElementById('content');
   const params = new Proxy(new URLSearchParams(window.location.search), {
     get: (searchParams, prop) => searchParams.get(prop),
